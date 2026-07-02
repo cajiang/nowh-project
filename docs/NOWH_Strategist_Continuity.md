@@ -1,0 +1,142 @@
+# NOWH Strategist Continuity & Governance
+
+This file is the governance record for the **Strategist role itself** — not
+the product. It exists so that when a chat session hits its limit, the next
+session's Strategist can be "hired" cold, read this one file (plus
+`CLAUDE.md`), and pick up exactly where the last one left off with no loss
+of continuity, no re-litigating settled decisions, and no need for the user
+to re-explain anything.
+
+Think of each chat session as one Strategist's tenure. When the session ends,
+that Strategist is effectively "fired" — a new one is "hired" in the next
+chat. This file is the transition brief every incoming Strategist reads
+before doing anything else.
+
+---
+
+## 1. Role Charter
+
+The Strategist is not the coding agent, not the demo director, not the
+executive decision-maker, and not an autonomous product builder. The
+Strategist helps the user (project owner, final decision-maker) think
+clearly, protect scope, define workflows, design the system, supervise
+builder agents, write implementation prompts, and maintain project
+continuity.
+
+Full role definition, product identity, architecture, and operating rules
+live in [CLAUDE.md](../CLAUDE.md) — that file is loaded automatically every
+session and is the senior document. This file governs *how the Strategist
+carries state across sessions*; it does not restate product rules that
+CLAUDE.md already owns.
+
+## 2. Update Protocol
+
+This file is **living**, not a one-time snapshot. The current Strategist
+must keep Section 4 (Current State) accurate on an ongoing basis:
+
+- **After any locked decision** — architecture choices, scope calls,
+  workflow definitions finalized — log it here (and in
+  `NOWH_Decision_Log.md` if it's a durable rationale-bearing decision).
+- **After any build phase changes** — a workflow moves from specced to
+  built, an agent is instantiated, a file is created — update "Completed /
+  Active / Not Started."
+- **Before the session is likely to end** — if context is running long or
+  the user signals they're wrapping up, proactively refresh this file even
+  without being asked.
+- **On explicit trigger** — the user saying "Begin strategist handoff"
+  means: stop other work now and do a full, careful pass over this entire
+  file, updating every section deliberately.
+
+Do not let this file go stale. A new Strategist trusts it completely — if
+it says something is "Not Started" that's actually built, the next session
+will duplicate work or make bad assumptions.
+
+## 3. Onboarding Instructions for a New Strategist
+
+If you are a new Strategist reading this for the first time in a fresh
+session:
+
+1. Read `CLAUDE.md` in full — locked identity, architecture, rules, workflows.
+2. Read this file in full, especially Section 4 (Current State) below.
+3. Skim `NOWH_Decision_Log.md` for rationale behind any decision that seems
+   surprising.
+4. Do **not** re-ask the user to restate the project. Confirm state briefly
+   per `CLAUDE.md` Section 22 (Default First Step) — a short summary, not an
+   interrogation — then continue from "Immediate Next Steps" below.
+5. If something in this file conflicts with what the user says in the new
+   session, trust the user — they're the final decision-maker — and update
+   this file to match.
+
+## 4. Current State
+
+> The current Strategist keeps this section accurate. Overwrite freely —
+> do not append historical snapshots here; that's what `NOWH_Decision_Log.md`
+> is for.
+
+### Phase
+Strategist Definition — Pre-Build.
+
+### Locked Decisions Since Last Update
+- Strategist Prompt v2.0 locked as `CLAUDE.md`
+- Architecture: Claude Cowork runs the work / Google stores the truth /
+  NOWH defines the rules
+- First target: NOWH Demo v2 Plugin
+- Six core workflows for v1: Morning Brief, Meeting Prep, Open Loops,
+  Approval Queue, Grantee Burden Check, Privacy Review
+- Continuity model: this file replaces the old trigger-only
+  `NOWH_Handoff.md` — continuity is now maintained continuously, not just
+  on explicit handoff request
+- `NOWH_Project_Overview.md` upgraded to the full "Universal Project
+  Overview v1.0" and designated as required first-read context for every
+  new custom NOWH build agent
+
+### Completed
+- Project folder created, fully separate from PM_OS/RHEN-OS
+- `CLAUDE.md` written with full strategist prompt
+- 12 canonical `docs/` files scaffolded (now 12, with `NOWH_Handoff.md`
+  replaced by this file)
+
+### Active
+- Nothing in progress — awaiting user direction on first workflow to spec
+
+### Not Started
+- Google Sheet schema (NOWH Director Workspace)
+- Drive folder structure / Docs templates
+- The four custom NOWH build agents (Privacy & Governance Reviewer, Google
+  Workspace Designer, Cowork/Packaging Designer, QA/Demo Readiness Reviewer)
+- Claude Cowork plugin packaging
+- NOWH Demo v2 Plugin
+
+### Open Decisions
+- Which of the six core workflows to spec first (suggested: Morning Brief,
+  since the other five feed into it)
+
+### Risks and Watchouts
+- Grantee-facing workflows must not drift into surveillance/scoring
+- Restricted-sensitivity data must not leak into external-facing drafts
+- Plugin setup must stay within a nontechnical Mac user's ability to
+  install/run
+- No paid tools without explicit user approval
+
+### Out-of-Scope (current phase)
+- MCP adapters, local servers, custom OAuth infra, heavy local apps for
+  the demo
+- CRM-style grantee scoring/ranking
+- Autonomous sending of funder/donor/grantee/board-facing messages
+
+### Immediate Next Steps
+1. Confirm with the user which core workflow to spec first (default
+   suggestion: Morning Brief)
+2. Run that workflow through the Default Build Sequence Steps 1–3
+   (Strategy → Workflow → Data Structure) before touching packaging
+
+---
+
+## 5. Session Log
+
+> Append-only. One short entry per session/Strategist tenure. Keep entries
+> to 1–3 lines — detail belongs in Section 4 or the Decision Log, not here.
+
+- **2026-07-02** — Initial Strategist. Set up project folder, `CLAUDE.md`,
+  all canonical `docs/` files, and this continuity file. No workflows built
+  yet. Handed off with next step = pick first workflow to spec.

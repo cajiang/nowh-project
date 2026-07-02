@@ -1,0 +1,28 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets & credentials — never commit these
+.env
+.env.*
+credentials.json
+token.json
+*.token
+*_secrets.*
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Python (if build agents add scripts later)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node (if tooling needs it later)
+node_modules/
+
+# Local scratch
+*.log
+.tmp/
