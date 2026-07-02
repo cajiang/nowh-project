@@ -38,6 +38,15 @@ files, or complex configuration exposed to the director.
   settings (OAuth through Cowork directly), nothing NOWH-specific to set up
   beforehand. This is likely the actual first packaging target once V1 is
   built and proven, ahead of Morning Brief/V2.
+  **New setup requirement (2026-07-02, from live capability testing):**
+  setup instructions must direct the director to set the Google Calendar
+  connector's write tools (create/edit/delete event) to **"Needs
+  Approval,"** not "Always Allow," in Cowork's connector permission
+  settings. This is defense-in-depth on top of NOWH's own approval-gate
+  design (spec Section 3.2), not a substitute for it — testing showed the
+  platform's default "Always Allow" behavior does not distinguish internal
+  from external actions at all. See `NOWH_Decision_Log.md` for the full
+  finding.
 - **Morning Brief** (accepted 2026-07-02, parked as V2 — not current build
   target): "Run my morning brief," "What matters today," "Give me today's
   brief." Setup flow must ensure the Sheet has the five originated tabs

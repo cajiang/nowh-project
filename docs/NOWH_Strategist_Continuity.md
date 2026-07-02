@@ -146,12 +146,19 @@ section before assuming anything from an earlier session still applies.)
   learning: grep the full document for terms under a hard constraint
   before accepting a revision, not just the sections the revision was
   scoped to touch.**
-  **Open Question 1 partially closed:** CEO confirmed Test 1 — Cowork's
-  native Calendar connector does pause for approval before an external
-  invite sends, a redundant safety net on top of NOWH's own Section 3.2
-  requirement (which still governs regardless). Still waiting on Test 2
-  (does an internal-only action also get platform-level confirmation, or
-  does it stay fast as NOWH's design intends).
+  **Open Question 1 resolved, corrected from an earlier misread.** Live
+  test showed a confirmation only on the *first* Calendar write action, not
+  subsequent ones — this is Cowork's generic per-tool permission setting
+  (Always Allow / Needs Approval / Blocked), not a content-aware gate. Once
+  a tool is Always Allow, the platform will not stop an external send.
+  **Section 3.2's design was already built to be the sole enforcement
+  regardless of platform behavior — this finding validates that caution,
+  doesn't require a design change.** New action item: setup must instruct
+  the director to set Calendar write tools to "Needs Approval" as
+  defense-in-depth (`NOWH_Plugin_Packaging_Plan.md`, updated). I initially
+  logged the first two-word report ("it gave approval gates") as a
+  confirmed redundant safety net without asking for detail first — corrected
+  once the fuller picture came in; lesson logged in the Decision Log.
   **Remaining before V1 is fully closed:** record the CEO's test finding;
   build Privacy & Governance Reviewer agent and run it against this spec;
   actually implement and test in a real Google/Cowork environment (outside

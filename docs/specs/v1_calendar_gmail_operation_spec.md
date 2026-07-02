@@ -679,18 +679,37 @@ behavioral, not column-based):**
 
 ## 10. OPEN QUESTIONS
 
-1. ~~**Live platform validation — PENDING.**~~ **PARTIALLY RESOLVED (CEO,
-   2026-07-02):** confirmed that Claude Cowork's native Google Calendar
-   connector does pause and request approval before sending an external
-   invite (Test 1). This is a **redundant safety net on top of** — not a
-   substitute for — the hard requirement in Section 3.2, which still
-   governs the exact preview content, no-partial-credit, and no-default-yes
-   rules regardless of platform behavior. **Still open:** whether the
-   platform's own confirmation also fires for purely internal actions with
-   no external invitee (Test 2) — this matters for whether NOWH's "internal
-   actions stay fast" design (Section 3.1/3.2) will actually feel fast, or
-   whether the platform adds its own friction there too regardless of what
-   NOWH specifies. Pending CEO follow-up.
+1. ~~**Live platform validation — PENDING.**~~ **RESOLVED (CEO test +
+   platform research, 2026-07-02) — corrected from the initial reading.**
+   The CEO's Test 1 showed a confirmation prompt on the *first* Calendar
+   write action, then none on subsequent ones. Platform research confirms
+   why: Claude Cowork connectors expose a **per-tool permission setting**
+   with three states — **Always Allow**, **Needs Approval**, **Blocked**
+   (source: Anthropic connector permissions documentation). What the CEO
+   saw was this generic, content-blind tool-permission prompt firing once
+   and then resolving to "Always Allow" — **not** a per-action,
+   content-aware check that distinguishes an internal time-block from an
+   external funder invite. **This is not the redundant safety net
+   previously logged — correct that.** Once a connector tool is set to
+   Always Allow, the platform will not stop *any* subsequent call through
+   it, external or not.
+   **What this means for this spec: Section 3.2 is the sole, load-bearing
+   enforcement mechanism for the external-approval requirement — not a
+   belt-and-suspenders layer on top of a platform gate.** It was already
+   designed to hold "regardless of platform behavior" (see Section 3.2's
+   own framing), so this finding doesn't require a design change — it
+   confirms the design's original caution was correct and necessary, not
+   overcautious.
+   **New setup recommendation (defense-in-depth, not a substitute for
+   3.2):** NOWH's setup/packaging instructions should direct the director
+   to set the Google Calendar connector's write tools (create/edit/delete
+   event) to **"Needs Approval,"** not "Always Allow." This restores a
+   genuine platform-level pause on every write call as a second layer,
+   on top of Section 3.2's content-aware preview — the two are
+   complementary (platform gate = "is Claude allowed to touch Calendar
+   right now," Section 3.2 = "here's exactly who this specific action
+   would notify and why that matters"). Flagged for
+   `NOWH_Plugin_Packaging_Plan.md` when packaging is scoped.
 2. ~~**Exact mechanism for "reminders."**~~ **RESOLVED (Strategist,
    2026-07-02): accepted as an implementation-time decision.** Claude Code
    should use whichever mechanism (no-attendee event vs. native reminder

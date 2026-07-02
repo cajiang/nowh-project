@@ -47,22 +47,38 @@ its own charter. `NOWH_Agent_Architecture.md` updated to reference it.
 otherwise lack broader product context (privacy stance, grantee-centered
 framing, what NOWH must never become) needed to make good judgment calls.
 
-### 2026-07-02 — Live capability test confirms platform-level approval gate
+### 2026-07-02 — Live capability test result CORRECTED: no reliable platform gate
 
-**Finding:** CEO ran the manual capability test in Claude Cowork (Test 1 —
-external Calendar invite). Result: Claude Cowork's native Google Calendar
-connector does pause and ask for approval before sending an external
-invite. This is a **redundant safety net**, not a replacement for the hard
-requirement already specced in `v1_calendar_gmail_operation_spec.md`
-Section 3.2 — NOWH's own explicit preview/confirmation contract still
-governs exact behavior (preview contents, no-partial-credit, no-default-
-yes), so the spec's correctness never depended on this finding either way.
-Good outcome: belt-and-suspenders, not a single point of failure.
-**Still open:** whether the platform's confirmation also fires for
-purely-internal actions (Test 2 result not yet reported) — matters for
-whether NOWH's "internal actions stay fast" design actually holds in
-practice, since a platform-level confirmation on every action (not just
-external ones) would add friction NOWH's own design doesn't call for.
+**Original finding (this entry, same day, earlier):** logged as "platform
+pauses before sending an external invite — a redundant safety net."
+**Correction, same day:** the CEO's fuller report clarifies the
+confirmation only appeared on the *first* Calendar write action, not on
+subsequent ones. Platform research (Anthropic connector permissions docs)
+explains why: each connector tool has a permission state — **Always
+Allow / Needs Approval / Blocked**. What fired was a generic, content-blind
+"is Claude allowed to use this tool at all" prompt, which resolved to
+Always Allow — not a per-action, content-aware check distinguishing an
+internal time-block from an external funder invite. **There is no reliable
+platform-level safety net once a connector tool is set to Always Allow.**
+
+**Why this doesn't compromise the V1 design:** `v1_calendar_gmail_operation_spec.md`
+Section 3.2 was written from the start to hold "regardless of platform
+behavior" — this finding confirms that caution was correct and necessary,
+not excessive. Section 3.2 remains the sole, load-bearing enforcement for
+external-approval; no design change required there.
+
+**New action item:** setup/packaging should direct the director to set the
+Calendar connector's write tools to **"Needs Approval"** (not "Always
+Allow") as a genuine second layer of defense, complementary to Section
+3.2. Flagged for `NOWH_Plugin_Packaging_Plan.md`.
+
+**Process note:** I logged the original (incorrect) reading too quickly
+off a two-word summary ("it gave approval gates") without asking what
+specifically triggered the prompt or whether it recurred. Should have
+asked before recording it as a confirmed finding — corrected once the CEO
+gave the fuller picture, but the lesson is to ask a clarifying question
+before writing a platform-behavior claim into the permanent record, not
+after.
 
 ### 2026-07-02 — V1 spec Contacts-lookup revision accepted
 
