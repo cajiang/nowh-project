@@ -47,6 +47,32 @@ its own charter. `NOWH_Agent_Architecture.md` updated to reference it.
 otherwise lack broader product context (privacy stance, grantee-centered
 framing, what NOWH must never become) needed to make good judgment calls.
 
+### 2026-07-02 — Architect role adopted, merged into Google Workspace + Packaging Designers
+
+**Decision:** CEO shared a drafted "RHEN Technical Architect" charter as a
+pattern reference. Adopted the pattern for NOWH but restructured the agent
+roster: merged the previously-planned **Google Workspace Designer** and
+**Claude Cowork / Packaging Designer** into a single **NOWH Architect**
+agent that owns the full technical spec (data shape + interface shape +
+propagation) before Claude Code implements. NOWH's specialist roster drops
+from a planned four to three: Architect, Privacy & Governance Reviewer,
+QA/Demo Readiness Reviewer. Built the Architect as a real Claude Code
+subagent at `.claude/agents/nowh-architect.md`, adapted in full for NOWH's
+architecture (no database/backend — Google Workspace + Claude Cowork only;
+no separate "Engineer" role — Claude Code's `general-purpose` fills that
+function; spec output lands in `docs/specs/`, not directly in canonical
+files — Strategist reviews and folds accepted decisions in).
+**Rationale:** CEO explicitly chose "merge" over "add as 5th agent" or
+"rigor-only, no restructure" when presented with the tradeoffs — RHEN's
+Architect literally does the work NOWH had split across two designer
+agents, and NOWH's thin stack doesn't justify two separate design agents.
+Reducing to three agents also better matches the "no agent swarm" principle
+already locked in Section 12/25.
+**Noted gap:** NOWH has no equivalent of RHEN's `PM_OPERATIONAL_REALITY.md`
+(documented failure modes per workflow). Flagged in the Architect charter
+as something to raise via Open Questions if a milestone needs it — not
+built yet, not blocking.
+
 ### 2026-07-02 — Strategist Operating Loop and Escalation Protocol locked
 
 **Decision:** Adopted the full NOWH Strategist Operating Loop and Escalation

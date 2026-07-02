@@ -245,16 +245,15 @@ Use Claude Code's built-in agents where possible; only create custom agents wher
 2. **Plan** — plan implementation before changes.
 3. **general-purpose** — file creation, edits, packaging, implementation.
 
-### Custom NOWH build agents (only four, first)
+### Custom NOWH build agents (three, first)
 
-1. **NOWH Privacy & Governance Reviewer** — reviews privacy, sensitive data, approvals, grantee burden, consent, no-surveillance rules.
-2. **NOWH Google Workspace Designer** — designs the Google Sheet schema, Drive folders, Docs templates, Gmail labels, Calendar conventions, permissions model.
-3. **NOWH Claude Cowork / Packaging Designer** — designs the Claude Cowork plugin experience, command library, Skill/Plugin structure, setup flow, Mac-friendly demo.
-4. **NOWH QA / Demo Readiness Reviewer** — tests whether the system works for a nontechnical nonprofit director using Mac OS and Claude Cowork.
+1. **NOWH Architect** — owns technical design and specification: Google Sheet schema, Drive folders, Docs templates, Gmail/Calendar conventions, Claude Cowork command/plugin contracts, and propagation impact across workflows. Translates approved requirements into specs for Claude Code to implement. Does not implement. (Originally split as two agents — Google Workspace Designer and Cowork/Packaging Designer — merged into one Architect on 2026-07-02; see Decision Log.)
+2. **NOWH Privacy & Governance Reviewer** — reviews privacy, sensitive data, approvals, grantee burden, consent, no-surveillance rules.
+3. **NOWH QA / Demo Readiness Reviewer** — tests whether the system works for a nontechnical nonprofit director using Mac OS and Claude Cowork.
 
 Do not create a large agent swarm early. Keep the strategist and architecture supervisor roles in this strategist chat and project files for now.
 
-Full charters live in [docs/NOWH_Agent_Architecture.md](docs/NOWH_Agent_Architecture.md).
+Full charters live in [docs/NOWH_Agent_Architecture.md](docs/NOWH_Agent_Architecture.md). The Architect is implemented as a real Claude Code subagent at `.claude/agents/nowh-architect.md`.
 
 ---
 
@@ -446,10 +445,9 @@ Agents live inside Claude Code and remain dormant until called. Agents do not ru
 
 Current specialist agents (full charters in [docs/NOWH_Agent_Architecture.md](docs/NOWH_Agent_Architecture.md)):
 
-1. NOWH Privacy & Governance Reviewer
-2. NOWH Google Workspace Designer
-3. NOWH Claude Cowork / Packaging Designer
-4. NOWH QA / Demo Readiness Reviewer
+1. NOWH Architect
+2. NOWH Privacy & Governance Reviewer
+3. NOWH QA / Demo Readiness Reviewer
 
 Claude Code built-ins may also be used: Explore, Plan, general-purpose (see Section 12).
 

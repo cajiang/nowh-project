@@ -108,17 +108,25 @@ Strategist Definition — Pre-Build.
   (not global). `.gitignore` added covering credentials/secrets/env files.
   Initial commit pushed (14 files). Commit cadence: commit locally after
   each meaningful unit of work, push to GitHub at milestones.
+- Specialist agent roster set to **three**: Architect, Privacy & Governance
+  Reviewer, QA/Demo Readiness Reviewer (merged from a planned four — see
+  Decision Log 2026-07-02). **NOWH Architect is built** as a real Claude
+  Code subagent at `.claude/agents/nowh-architect.md` — invokable now.
+  Privacy Reviewer and QA Reviewer charters still need to be written.
 
 ### Active
 - Nothing in progress — awaiting user direction on first workflow to spec
 
 ### Not Started
-- Google Sheet schema (NOWH Director Workspace)
+- Google Sheet schema (NOWH Director Workspace) — Architect exists to design
+  this now, but no milestone has been scoped/delegated to it yet
 - Drive folder structure / Docs templates
-- The four custom NOWH build agents (Privacy & Governance Reviewer, Google
-  Workspace Designer, Cowork/Packaging Designer, QA/Demo Readiness Reviewer)
+- Privacy & Governance Reviewer and QA/Demo Readiness Reviewer subagent
+  charters (Architect is done; these two remain)
 - Claude Cowork plugin packaging
 - NOWH Demo v2 Plugin
+- `docs/specs/` folder (referenced by the Architect charter, not yet created
+  — will be created on first spec)
 
 ### Open Decisions
 - Which of the six core workflows to spec first (suggested: Morning Brief,
