@@ -47,6 +47,23 @@ its own charter. `NOWH_Agent_Architecture.md` updated to reference it.
 otherwise lack broader product context (privacy stance, grantee-centered
 framing, what NOWH must never become) needed to make good judgment calls.
 
+### 2026-07-02 — Live capability test confirms platform-level approval gate
+
+**Finding:** CEO ran the manual capability test in Claude Cowork (Test 1 —
+external Calendar invite). Result: Claude Cowork's native Google Calendar
+connector does pause and ask for approval before sending an external
+invite. This is a **redundant safety net**, not a replacement for the hard
+requirement already specced in `v1_calendar_gmail_operation_spec.md`
+Section 3.2 — NOWH's own explicit preview/confirmation contract still
+governs exact behavior (preview contents, no-partial-credit, no-default-
+yes), so the spec's correctness never depended on this finding either way.
+Good outcome: belt-and-suspenders, not a single point of failure.
+**Still open:** whether the platform's confirmation also fires for
+purely-internal actions (Test 2 result not yet reported) — matters for
+whether NOWH's "internal actions stay fast" design actually holds in
+practice, since a platform-level confirmation on every action (not just
+external ones) would add friction NOWH's own design doesn't call for.
+
 ### 2026-07-02 — V1 spec Contacts-lookup revision accepted
 
 **Decision:** Accepted the Architect's revision of

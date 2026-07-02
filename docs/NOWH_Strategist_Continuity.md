@@ -146,9 +146,12 @@ section before assuming anything from an earlier session still applies.)
   learning: grep the full document for terms under a hard constraint
   before accepting a revision, not just the sections the revision was
   scoped to touch.**
-  **One open item remains genuinely open: Open Question 1, the CEO's live
-  Cowork capability test result — update the spec and this file once
-  reported.** Does not block anything.
+  **Open Question 1 partially closed:** CEO confirmed Test 1 — Cowork's
+  native Calendar connector does pause for approval before an external
+  invite sends, a redundant safety net on top of NOWH's own Section 3.2
+  requirement (which still governs regardless). Still waiting on Test 2
+  (does an internal-only action also get platform-level confirmation, or
+  does it stay fast as NOWH's design intends).
   **Remaining before V1 is fully closed:** record the CEO's test finding;
   build Privacy & Governance Reviewer agent and run it against this spec;
   actually implement and test in a real Google/Cowork environment (outside

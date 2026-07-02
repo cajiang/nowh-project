@@ -679,12 +679,18 @@ behavioral, not column-based):**
 
 ## 10. OPEN QUESTIONS
 
-1. **Live platform validation — PENDING, not yet resolved.** The CEO is
-   independently running a live capability test in Claude Cowork. This
-   spec's approval-gate design (Section 3.2) is correct and safe regardless
-   of the outcome, so acceptance does not wait on this — but the finding
-   itself still needs to be recorded here once available. **Strategist:
-   update this entry with the CEO's actual test result when reported.**
+1. ~~**Live platform validation — PENDING.**~~ **PARTIALLY RESOLVED (CEO,
+   2026-07-02):** confirmed that Claude Cowork's native Google Calendar
+   connector does pause and request approval before sending an external
+   invite (Test 1). This is a **redundant safety net on top of** — not a
+   substitute for — the hard requirement in Section 3.2, which still
+   governs the exact preview content, no-partial-credit, and no-default-yes
+   rules regardless of platform behavior. **Still open:** whether the
+   platform's own confirmation also fires for purely internal actions with
+   no external invitee (Test 2) — this matters for whether NOWH's "internal
+   actions stay fast" design (Section 3.1/3.2) will actually feel fast, or
+   whether the platform adds its own friction there too regardless of what
+   NOWH specifies. Pending CEO follow-up.
 2. ~~**Exact mechanism for "reminders."**~~ **RESOLVED (Strategist,
    2026-07-02): accepted as an implementation-time decision.** Claude Code
    should use whichever mechanism (no-attendee event vs. native reminder
