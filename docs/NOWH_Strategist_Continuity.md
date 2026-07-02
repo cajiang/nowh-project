@@ -77,6 +77,13 @@ session:
 Strategist Definition — Pre-Build.
 
 ### Locked Decisions Since Last Update
+- **Strategist Operating Loop and Escalation Protocol locked** (`CLAUDE.md`
+  Sections 22–30). The Strategist now runs the CEO→Strategist→Agents→
+  Strategist→CEO loop as project manager, resolving routine issues via
+  canonical docs and escalating only against the 8-condition Escalation
+  Rule. Every future strategist should operate this way by default —
+  triage and resolve first, escalate second, and never surface raw agent
+  output to the CEO (decision-level summaries only, per Section 28).
 - Strategist Prompt v2.0 locked as `CLAUDE.md`
 - Architecture: Claude Cowork runs the work / Google stores the truth /
   NOWH defines the rules
@@ -95,6 +102,12 @@ Strategist Definition — Pre-Build.
 - `CLAUDE.md` written with full strategist prompt
 - 12 canonical `docs/` files scaffolded (now 12, with `NOWH_Handoff.md`
   replaced by this file)
+- GitHub repo live: https://github.com/cajiang/nowh-project (public,
+  separate from all other repos on the account). `gh` CLI installed and
+  authenticated as `cajiang`. Local git identity scoped to this repo only
+  (not global). `.gitignore` added covering credentials/secrets/env files.
+  Initial commit pushed (14 files). Commit cadence: commit locally after
+  each meaningful unit of work, push to GitHub at milestones.
 
 ### Active
 - Nothing in progress — awaiting user direction on first workflow to spec

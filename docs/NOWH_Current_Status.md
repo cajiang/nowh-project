@@ -19,6 +19,8 @@ RHEN-OS.
 - [x] Strategist continuity model established — `docs/NOWH_Strategist_Continuity.md`
       is now the living cross-session governance file (replaces the old
       trigger-only `NOWH_Handoff.md`)
+- [x] GitHub repo live at https://github.com/cajiang/nowh-project (public,
+      separate from other repos on the account), initial commit pushed
 
 ## Active
 

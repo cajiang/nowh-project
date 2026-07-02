@@ -47,6 +47,29 @@ its own charter. `NOWH_Agent_Architecture.md` updated to reference it.
 otherwise lack broader product context (privacy stance, grantee-centered
 framing, what NOWH must never become) needed to make good judgment calls.
 
+### 2026-07-02 — Strategist Operating Loop and Escalation Protocol locked
+
+**Decision:** Adopted the full NOWH Strategist Operating Loop and Escalation
+Protocol into `CLAUDE.md` (new Sections 22–30: Operating Loop, CEO Role,
+Strategist Role, Agent Role, Issue Handling and Escalation, Strategist
+Delegation Standard, CEO Summary Standard, Default First Step, Core Rule).
+The Strategist now operates as project manager/execution supervisor, not a
+passive advisor: converts CEO milestones into scoped work, delegates to
+Claude Code and the four specialist agents, resolves ordinary issues using
+canonical docs without CEO involvement, and escalates only against the
+8-condition Escalation Rule (docs don't answer it, locked direction, privacy/
+trust/grantee-burden tradeoff, demo scope change, new cost, nontechnical-UX
+change, reopening a locked decision, meaningful mission risk). CEO updates
+must be decision-level summaries, not raw agent output.
+**Rationale:** CEO explicitly wants to set direction and approve major
+decisions without having to manage every agent conversation, field name, or
+minor fix — the Strategist should triage and resolve routine issues
+independently using the canonical docs as the source of truth.
+**Applied immediately:** the stale `NOWH_Handoff` reference in the pasted
+protocol (superseded by `NOWH_Strategist_Continuity.md`, see prior decision)
+was resolved silently per this same protocol — Section 20's canonical list
+already had the correct name, so no escalation was needed.
+
 ### 2026-07-02 — GitHub repo: separate, public, structure-only
 
 **Decision:** NOWH gets its own dedicated GitHub repo (`nowh-project`),
