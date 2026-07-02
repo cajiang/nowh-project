@@ -115,7 +115,34 @@ Strategist Definition — Pre-Build.
   Privacy Reviewer and QA Reviewer charters still need to be written.
 
 ### Active
-- Nothing in progress — awaiting user direction on first workflow to spec
+- **Morning Brief spec — ACCEPTED (2026-07-02).** Full cycle complete:
+  Architect drafted → CEO resolved Calendar-scope question → Architect
+  revised → Strategist reviewed (found and fixed a real inconsistency),
+  resolved remaining open questions, folded decisions into
+  `NOWH_Workflow_Specs.md` / `NOWH_Data_Schema.md` / `NOWH_Plugin_Packaging_Plan.md`,
+  added a standing access-surface escalation rule to `CLAUDE.md` Section 26.
+  Full spec at `docs/specs/morning_brief_spec.md`. **Remaining before this
+  workflow is fully closed (Milestone 1):** build Privacy & Governance
+  Reviewer agent and run it against this spec; build the actual Sheet/Doc/
+  Drive structure in a real Google account (outside this session's tool
+  access — needs CEO's environment); manually test against the spec's 12
+  acceptance tests.
+
+### Operational Note — Session Working Directory
+
+`.claude/agents/nowh-architect.md` is only discoverable by the Agent tool
+when a session's actual working directory is the NOWH folder itself. The
+session that built it was rooted at a different project (RHEN_Project) and
+wrote files into NOWH via absolute paths — the Agent tool confirmed
+`nowh-architect` is NOT in its available-agents list under those
+conditions (tested directly, got "Agent type 'nowh-architect' not found").
+
+**For any future session doing real NOWH work: open Claude Code with
+`C:\Users\Calvin\Documents\Claude\Projects\NOWH` as the working directory**,
+not from within another project. Otherwise the custom subagents in
+`.claude/agents/` won't be invokable by name, and you'll have to fall back
+to `general-purpose` with the charter pasted in manually (works, but loses
+the clean "agent type" routing and costs more setup per call).
 
 ### Not Started
 - Google Sheet schema (NOWH Director Workspace) — Architect exists to design

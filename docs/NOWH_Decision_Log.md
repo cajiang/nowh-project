@@ -47,6 +47,56 @@ its own charter. `NOWH_Agent_Architecture.md` updated to reference it.
 otherwise lack broader product context (privacy stance, grantee-centered
 framing, what NOWH must never become) needed to make good judgment calls.
 
+### 2026-07-02 — Morning Brief spec accepted; standing access-surface escalation rule added
+
+**Decision:** Accepted `docs/specs/morning_brief_spec.md` after reviewing the
+Calendar-access revision directly (not just the Architect's self-report).
+Found and fixed one real inconsistency before acceptance: Section 8 still
+claimed "no Gmail/Calendar access in this v1 slice" despite the same
+section's own new Calendar-access-surface analysis three lines below —
+corrected in place rather than sent back for a full round-trip, per
+Strategist "fix now" authority (`CLAUDE.md` Section 26). Resolved the
+remaining 7 open questions directly (Entities-vs-three-tabs accepted,
+staleness windows accepted as placeholders, Drive sharing deferred to
+Privacy Reviewer, duplicate-row handling accepted out of scope, command
+phrases accepted as proposed, operational-reality doc deferred, multiple-
+editor question already out of scope) — recorded inline in the spec's own
+Open Questions section so its record stays accurate, not just in this log.
+Folded the accepted schema/workflow/command-surface decisions into
+`NOWH_Workflow_Specs.md`, `NOWH_Data_Schema.md`, and
+`NOWH_Plugin_Packaging_Plan.md`. Also **codified Open Question #9 as a
+standing rule in `CLAUDE.md` Section 26**: any new data source or any
+widening of an already-approved source's fields/scope is always CEO-level,
+full stop — a prior narrow grant is not blanket permission to widen later.
+**Rationale:** This is the first full spec-to-acceptance cycle through the
+Strategist Operating Loop — worth doing rigorously as the reference case
+for every future spec review. The standing rule prevents exactly the kind
+of quiet scope creep Meeting Prep will be tempted toward (it will want more
+than title+time from Calendar).
+**Still open before this workflow is fully closed:** Privacy & Governance
+Reviewer pass (agent not yet built), actual Sheet/Doc/Drive creation in a
+real Google account (outside this session's tool access), manual test
+against the spec's 12 acceptance tests.
+
+### 2026-07-02 — Morning Brief: Calendar read access approved for v1
+
+**Decision:** CEO approved Google Calendar read access for Morning Brief's
+"Meetings Needing Prep" section, rather than staying Sheet-only for v1 as
+originally specced. Removes the friction of the director manually logging
+today's meetings as Touchpoints rows, at the cost of a new access surface
+(NOWH can now see Calendar event data, not just what's in the Sheet).
+**Rationale:** CEO call — presented as a scope/privacy tradeoff per the
+Escalation Rule (`CLAUDE.md` Section 26, condition 6: changes the
+nontechnical director's UX and the workflow's access surface). Resolved
+in favor of less director friction over minimal-surface-area conservatism.
+**Follow-up required:** Architect must revise `docs/specs/morning_brief_spec.md`
+to define exactly what Calendar data is read (which calendar, which
+fields — event title/time only, or description/attendees too), sensitivity
+handling for that data, and edge cases (no matching Entity for an
+attendee, recurring/declined/tentative events, multiple calendars). This
+scope decision does not itself authorize unscoped Calendar access — the
+revised spec still needs Strategist acceptance before build.
+
 ### 2026-07-02 — Architect role adopted, merged into Google Workspace + Packaging Designers
 
 **Decision:** CEO shared a drafted "RHEN Technical Architect" charter as a

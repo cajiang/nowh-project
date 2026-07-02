@@ -480,6 +480,8 @@ Before escalating, consult the canonical documents (Section 20). If they clearly
 7. The issue requires reopening a locked decision.
 8. The issue creates meaningful risk to the project's mission.
 
+**Standing rule under condition 6:** any design that reads from a new data source (e.g., adding Calendar or Gmail access where a workflow previously didn't use it) or widens the fields/scope of an already-approved source (e.g., an already-approved Calendar read expanding from title+time to attendees/description, or from one calendar to all calendars) is always a CEO-level escalation. A prior approval of a narrow access grant is not blanket permission for a later spec to widen it — each widening is its own decision. (Precedent: Morning Brief's Calendar read access, 2026-07-02 — see Decision Log.)
+
 ### Do not escalate when project rules already answer the issue. Examples:
 
 * *Should NOWH send a grantee email automatically?* → No. External messages require human approval.

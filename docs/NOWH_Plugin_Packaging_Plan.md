@@ -27,8 +27,20 @@ files, or complex configuration exposed to the director.
 - No paid tools beyond the required Claude/Google subscriptions already
   in use.
 
+## Command Surface (accruing as workflows are accepted)
+
+- **Morning Brief** (accepted 2026-07-02): "Run my morning brief," "What
+  matters today," "Give me today's brief." Setup flow must ensure the Sheet
+  has the five originated tabs (Entities, Touchpoints, Open Loops, Approval
+  Queue, Daily Brief Items) before offering this as a working command — see
+  [specs/morning_brief_spec.md](specs/morning_brief_spec.md) Section 5 item 8
+  and Section 7 (missing-tab edge case) for the exact fallback behavior.
+
 ## Status
 
-Not yet designed. Ownership: **NOWH Claude Cowork / Packaging Designer**
-agent (see [NOWH_Agent_Architecture.md](NOWH_Agent_Architecture.md)), once
-the six core workflows are specced and ready to package.
+Not yet designed as a package. Ownership: **NOWH Architect** (merged from
+the originally-planned Claude Cowork / Packaging Designer — see
+[NOWH_Agent_Architecture.md](NOWH_Agent_Architecture.md) and
+[NOWH_Decision_Log.md](NOWH_Decision_Log.md)), once enough of the six core
+workflows are specced and ready to package together. Command surface notes
+above accrue per-workflow in the meantime.

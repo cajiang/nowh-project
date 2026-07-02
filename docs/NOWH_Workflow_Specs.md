@@ -14,7 +14,18 @@ preparation, sensitive items, open loops, funder follow-ups, grantee care
 prompts, board/founder prep, money or compliance deadlines, items that can
 wait, items requiring approval.
 
-**Status:** Not yet specced in detail. Likely first workflow to build.
+**Status:** **Accepted, 2026-07-02 — full technical spec at
+[specs/morning_brief_spec.md](specs/morning_brief_spec.md).** Originates the
+first slice of the NOWH Director Workspace schema (Entities, Touchpoints,
+Open Loops, Approval Queue, Daily Brief Items — see
+[NOWH_Data_Schema.md](NOWH_Data_Schema.md)). Reads today's events live from
+the director's primary Google Calendar (title + start/end time only, never
+persisted) in addition to the Sheet. Trigger phrases: "Run my morning
+brief," "What matters today," "Give me today's brief." Output: a new Google
+Doc per run in `NOWH Workspace/Briefs/`, plus a short conversational
+summary. Read-only and internal-only — cannot approve, send, or share
+anything. Not yet built (no actual Sheet/Doc/Drive structure exists) or
+reviewed by the Privacy & Governance Reviewer.
 
 ## 2. Meeting Prep
 
