@@ -47,6 +47,49 @@ its own charter. `NOWH_Agent_Architecture.md` updated to reference it.
 otherwise lack broader product context (privacy stance, grantee-centered
 framing, what NOWH must never become) needed to make good judgment calls.
 
+### 2026-07-02 — Major re-sequencing: V1 redefined as Calendar + Gmail operation
+
+**Decision:** CEO reassessed and redefined V1. Instead of shipping the
+six-workflow Sheet-based system as the first deliverable, **V1 is now:
+NOWH operates the director's Google Calendar and Gmail through Claude
+Cowork, with no custom Sheet data layer required.**
+
+- **Calendar (V1): full operation** — create, edit, delete events/meetings,
+  set reminders, on the director's own calendar. **Includes inviting
+  external people** (funders, grantees, board, vendors) — explicit CEO
+  choice, not a default. **New approval gate added:** any calendar
+  event/invite that adds or notifies an external party requires explicit
+  director approval before it's sent — same bar as an external email.
+  Codified in `CLAUDE.md` Section 11 and `NOWH_Privacy_and_Governance.md`.
+- **Gmail (V1): summarize only, narrow scope** — highlight/summarize new
+  (unread) mail in the **primary inbox only**, not a full historical
+  search. Explicitly no drafting, no sending in V1 — CEO: "let's keep to
+  being able to summarize emails first" after initially considering
+  draft+send. Both deferred to `NOWH_Backlog.md`.
+- **Prior work (Morning Brief spec, 5-tab Sheet schema) is kept, not
+  discarded** — re-sequenced as **V2: NOWH Workflow Layer**, built on top
+  of the V1 Calendar/Gmail foundation once it's proven, not competing with
+  it.
+
+**Rationale:** The original six-workflow plan required proving workflow
+logic on top of an unbuilt, untested custom Sheet schema. This re-sequencing
+tests the actual hardest unknown first — can Claude Cowork reliably operate
+Calendar and Gmail at all — before investing further in NOWH-specific
+relationship/approval logic that depends on that foundation working.
+Reduces risk, and is more testable/concrete as an actual V1.
+
+**Escalation note:** this reopens locked decisions from Sections 4/6/7 and
+grants access far beyond the standing rule added earlier today (Calendar
+write + external invites, well past the narrow read-only grant). Handled
+correctly as a direct CEO decision, not a Strategist-resolved issue — this
+is exactly what Section 23 (CEO Role: "choosing between architecture
+paths," "changing the demo target") and the Section 26 standing rule
+require.
+
+**Updated:** `CLAUDE.md` Sections 4, 6, 7, 11; `NOWH_Privacy_and_Governance.md`
+(new "V1 Data Access Surfaces" section); `NOWH_Backlog.md` (Gmail
+draft/send deferral, V2 workflow layer).
+
 ### 2026-07-02 — Morning Brief spec accepted; standing access-surface escalation rule added
 
 **Decision:** Accepted `docs/specs/morning_brief_spec.md` after reviewing the

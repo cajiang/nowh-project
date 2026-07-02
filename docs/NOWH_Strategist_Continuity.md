@@ -74,28 +74,46 @@ session:
 > is for.
 
 ### Phase
-Strategist Definition — Pre-Build.
+**V1 Definition — Pre-Build.** (Re-sequenced 2026-07-02 — read this whole
+section before assuming anything from an earlier session still applies.)
 
 ### Locked Decisions Since Last Update
+- **MAJOR: V1 redefined as Calendar + Gmail operation (2026-07-02).** Not
+  the six-workflow Sheet system — that's now V2. See full rationale and
+  scope in `NOWH_Decision_Log.md` ("Major re-sequencing: V1 redefined as
+  Calendar + Gmail operation"). Summary:
+  - **Calendar V1: full operation** on the director's own calendar
+    (create/edit/delete events, reminders), **including external
+    invitees** (funders, grantees, board, vendors). New approval gate:
+    any event/invite touching an external party needs director approval
+    before it sends — codified in `CLAUDE.md` Section 11.
+  - **Gmail V1: summarize only**, unread mail in the primary inbox only.
+    No drafting, no sending — both explicitly deferred (CEO walked back
+    an initial draft+send idea to summarize-only). See `NOWH_Backlog.md`.
+  - **Morning Brief spec + 5-tab schema are NOT discarded** — kept as V2,
+    built on top of V1 once proven, not competing with it.
+  - `CLAUDE.md` Sections 4, 6, 7, 11 rewritten accordingly.
+    `NOWH_Privacy_and_Governance.md` got a new "V1 Data Access Surfaces"
+    section. Don't trust an old session's assumption that Morning Brief is
+    "next" — it isn't; the V1 Calendar/Gmail spec is next.
+- **Standing rule (still active):** any new data source or widened access
+  surface (Gmail, more of the inbox, more calendars, drafting, sending)
+  is CEO-level by default, full stop — `CLAUDE.md` Section 26. This rule
+  is *why* the V1 redefinition above was handled as a CEO decision, not
+  something the Strategist resolved alone.
 - **Strategist Operating Loop and Escalation Protocol locked** (`CLAUDE.md`
-  Sections 22–30). The Strategist now runs the CEO→Strategist→Agents→
+  Sections 22–30). The Strategist runs the CEO→Strategist→Agents→
   Strategist→CEO loop as project manager, resolving routine issues via
   canonical docs and escalating only against the 8-condition Escalation
-  Rule. Every future strategist should operate this way by default —
-  triage and resolve first, escalate second, and never surface raw agent
-  output to the CEO (decision-level summaries only, per Section 28).
-- Strategist Prompt v2.0 locked as `CLAUDE.md`
+  Rule. Triage and resolve first, escalate second, decision-level
+  summaries only (Section 28) — never raw agent output to the CEO.
 - Architecture: Claude Cowork runs the work / Google stores the truth /
-  NOWH defines the rules
-- First target: NOWH Demo v2 Plugin
-- Six core workflows for v1: Morning Brief, Meeting Prep, Open Loops,
-  Approval Queue, Grantee Burden Check, Privacy Review
-- Continuity model: this file replaces the old trigger-only
-  `NOWH_Handoff.md` — continuity is now maintained continuously, not just
-  on explicit handoff request
-- `NOWH_Project_Overview.md` upgraded to the full "Universal Project
-  Overview v1.0" and designated as required first-read context for every
-  new custom NOWH build agent
+  NOWH defines the rules — unchanged, still applies to both V1 and V2.
+- Continuity model: this file is living, updated continuously, not just
+  on explicit handoff request.
+- `NOWH_Project_Overview.md` is required first-read context for every new
+  custom NOWH build agent (still accurate for V1 — the product identity
+  and privacy/approval principles didn't change, only the build sequence).
 
 ### Completed
 - Project folder created, fully separate from PM_OS/RHEN-OS
@@ -115,18 +133,18 @@ Strategist Definition — Pre-Build.
   Privacy Reviewer and QA Reviewer charters still need to be written.
 
 ### Active
-- **Morning Brief spec — ACCEPTED (2026-07-02).** Full cycle complete:
-  Architect drafted → CEO resolved Calendar-scope question → Architect
-  revised → Strategist reviewed (found and fixed a real inconsistency),
-  resolved remaining open questions, folded decisions into
-  `NOWH_Workflow_Specs.md` / `NOWH_Data_Schema.md` / `NOWH_Plugin_Packaging_Plan.md`,
-  added a standing access-surface escalation rule to `CLAUDE.md` Section 26.
-  Full spec at `docs/specs/morning_brief_spec.md`. **Remaining before this
-  workflow is fully closed (Milestone 1):** build Privacy & Governance
-  Reviewer agent and run it against this spec; build the actual Sheet/Doc/
-  Drive structure in a real Google account (outside this session's tool
-  access — needs CEO's environment); manually test against the spec's 12
-  acceptance tests.
+- **V1 technical spec (Calendar + Gmail operation) — not yet written.**
+  This is the actual next delegation: send the Architect a scoped task per
+  `CLAUDE.md` Section 6's V1 definition and
+  `NOWH_Privacy_and_Governance.md`'s "V1 Data Access Surfaces." Same rigor
+  as Morning Brief (context intake, propagation, privacy control,
+  acceptance tests) but for Calendar operation + Gmail summarization
+  instead of the Sheet.
+- **V2 (Morning Brief) is parked, not abandoned.** Spec accepted at
+  `docs/specs/morning_brief_spec.md`, 5-tab schema in
+  `NOWH_Data_Schema.md`. Don't resume building it until V1 is proven —
+  but don't let a future session think it needs to be re-specced from
+  scratch either.
 
 ### Operational Note — Session Working Directory
 
@@ -145,38 +163,45 @@ to `general-purpose` with the charter pasted in manually (works, but loses
 the clean "agent type" routing and costs more setup per call).
 
 ### Not Started
-- Google Sheet schema (NOWH Director Workspace) — Architect exists to design
-  this now, but no milestone has been scoped/delegated to it yet
-- Drive folder structure / Docs templates
+- V1 Calendar + Gmail operation spec (the actual current priority)
 - Privacy & Governance Reviewer and QA/Demo Readiness Reviewer subagent
   charters (Architect is done; these two remain)
-- Claude Cowork plugin packaging
-- NOWH Demo v2 Plugin
-- `docs/specs/` folder (referenced by the Architect charter, not yet created
-  — will be created on first spec)
+- Any real build — no Calendar/Gmail integration exists, no Sheet exists
+  in any real Google account
+- Claude Cowork plugin packaging (depends on V1 being built and proven)
 
 ### Open Decisions
-- Which of the six core workflows to spec first (suggested: Morning Brief,
-  since the other five feed into it)
+- None blocking right now — V1 scope is fully locked (Calendar
+  full-operation + external-invite approval gate; Gmail summarize-only,
+  unread/primary inbox). Next open decision will likely surface once the
+  Architect drafts the V1 spec (e.g., exact Calendar event fields,
+  reminder mechanics, email summarization format).
 
 ### Risks and Watchouts
-- Grantee-facing workflows must not drift into surveillance/scoring
+- Calendar external invites are a real new capability — the approval gate
+  (director must approve before an invite reaches an external party) is
+  not optional, do not let a build spec soften it
+- Do not let Gmail scope creep past unread/primary inbox without a fresh
+  CEO decision (standing rule, `CLAUDE.md` Section 26)
+- Grantee-facing workflows (V2, when resumed) must not drift into
+  surveillance/scoring
 - Restricted-sensitivity data must not leak into external-facing drafts
-- Plugin setup must stay within a nontechnical Mac user's ability to
-  install/run
 - No paid tools without explicit user approval
 
-### Out-of-Scope (current phase)
-- MCP adapters, local servers, custom OAuth infra, heavy local apps for
-  the demo
+### Out-of-Scope (V1)
+- Gmail drafting and sending (deferred, see `NOWH_Backlog.md`)
+- MCP adapters, local servers, custom OAuth infra, heavy local apps
 - CRM-style grantee scoring/ranking
-- Autonomous sending of funder/donor/grantee/board-facing messages
+- The V2 Sheet-based workflow layer (parked, not cancelled)
 
 ### Immediate Next Steps
-1. Confirm with the user which core workflow to spec first (default
-   suggestion: Morning Brief)
-2. Run that workflow through the Default Build Sequence Steps 1–3
-   (Strategy → Workflow → Data Structure) before touching packaging
+1. Delegate the V1 Calendar + Gmail operation spec to the Architect (or
+   `general-purpose` with the charter pasted in, if still working from a
+   session not rooted at the NOWH folder — see Operational Note below)
+2. Strategist reviews the spec directly (not just the agent's self-report)
+   before accepting, same process used for Morning Brief
+3. Build Privacy & Governance Reviewer agent — needed before any spec with
+   this much new access-surface exposure should be considered fully closed
 
 ---
 
@@ -188,3 +213,10 @@ the clean "agent type" routing and costs more setup per call).
 - **2026-07-02** — Initial Strategist. Set up project folder, `CLAUDE.md`,
   all canonical `docs/` files, and this continuity file. No workflows built
   yet. Handed off with next step = pick first workflow to spec.
+- **2026-07-02 (same day, continued session)** — Set up GitHub repo, locked
+  the Operating Loop/Escalation Protocol, built the Architect agent
+  (merging two planned agents into one), fully specced and accepted
+  Morning Brief (5-tab schema + Calendar read access) — then the CEO
+  reassessed and **redefined V1 as Calendar + Gmail operation**, parking
+  Morning Brief as V2. Handed off with next step = delegate the V1 spec to
+  the Architect.

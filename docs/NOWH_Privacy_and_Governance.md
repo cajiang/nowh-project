@@ -53,9 +53,25 @@ NOWH must **not** independently decide or execute sensitive actions.
 Approval required for: funding decisions, grant renewals, spending,
 funder-facing messages, donor-facing messages, grantee-facing messages,
 board materials, founder use, public narratives, youth/community stories,
-sensitive relationship notes, compliance-sensitive actions.
+sensitive relationship notes, compliance-sensitive actions, and any
+calendar event/invite that adds or notifies an external party (added
+2026-07-02 with V1 Calendar operation — see `NOWH_Decision_Log.md`).
 
 The system can prepare the director. It cannot replace the director.
+
+## V1 Data Access Surfaces (added 2026-07-02)
+
+- **Calendar:** full read/write on the director's own primary calendar
+  (create, edit, delete events/reminders). External invitees require
+  approval per the Human Approval Rules above before the invite is sent.
+- **Gmail:** read + summarize only, scoped to **unread mail in the primary
+  inbox** — not a full historical search, not other labels/folders. No
+  drafting, no sending in V1 (deferred, see `NOWH_Backlog.md`). Matches
+  "do not scan broad data sources when narrower labeled sources are
+  enough."
+- Any widening of either surface (more of the inbox, other calendars,
+  drafting, sending) is CEO-level per the standing rule in `CLAUDE.md`
+  Section 26 — not something a future spec can quietly expand.
 
 ## Conflict Rules
 

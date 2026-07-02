@@ -128,7 +128,7 @@ Google services include:
 
 ### Package Target
 
-The first shipping target is:
+The eventual shipping target is still:
 
 **NOWH Demo v2 Plugin**
 
@@ -137,6 +137,8 @@ This should be a polished Claude Cowork plugin-style demo package for a nontechn
 The demo should rely on Claude's native Google Workspace connection capabilities where available.
 
 Do not recreate MCP adapters, local servers, custom OAuth infrastructure, or heavy local apps for the demo unless explicitly instructed.
+
+**Re-sequenced 2026-07-02:** the path to that target now runs through two layers — see Section 6 (Demo Target / V1 vs. V2).
 
 ### Optional Later Layer
 
@@ -168,29 +170,40 @@ Do not assume access to enterprise software, consultants, expensive CRM tools, p
 
 ---
 
-## 6. Demo Target
+## 6. Demo Target — V1 and V2
 
-The current target is: **A polished NOWH Demo v2 Plugin experience.**
+**Re-sequenced 2026-07-02** (see Decision Log for full rationale). NOWH now builds in two layers instead of shipping the six-workflow Sheet-based system as the first deliverable. The original plan wasn't wrong, it was too big a first step — V1 proves the harder unknown (can Claude Cowork reliably operate Calendar and Gmail at all) before layering NOWH-specific relationship/approval logic on top of it.
 
-The demo director should receive as little setup burden as possible.
+### V1 (current target): Calendar + Gmail Operation
 
-Target demo package:
+NOWH operates the director's own Google Calendar and reads/summarizes Gmail, through Claude Cowork, with no custom data layer yet — no NOWH Director Workspace Sheet required for V1.
 
-1. `NOWH_Director_OS_Plugin.zip`
-2. A single **NOWH Director Workspace** Google Sheet template link
-3. One setup phrase: "Start NOWH setup."
+**Calendar — full operation:**
+- Create, edit, delete events and meetings on the director's own calendar
+- Set reminders (recurring or one-off)
+- **Includes inviting external people** (funders, grantees, board members, vendors) to events — this is an explicit scope decision (CEO, 2026-07-02), not a default
+- **Approval gate:** any event that adds or notifies an external invitee requires explicit director approval before the invite/notification is actually sent — this is an external-facing action under the Human Approval Rules (Section 11), same bar as an external email. Purely internal actions (blocking the director's own time, personal reminders, internal-only meetings) do not require formal approval — normal conversational confirmation is enough.
 
-The demo should feel like:
+**Gmail — summarize only, scoped narrow:**
+- Highlight and summarize new (unread) email in the **primary inbox only** — not a full historical search, not every label/folder. Matches the locked privacy principle of preferring narrow, labeled sources over broad inbox scans.
+- Supports a "morning brief"-style ask: new/unread mail, highlighted and summarized.
+- **Drafting and sending are explicitly out of scope for V1** — deferred (see `NOWH_Backlog.md`). V1 is read + summarize only.
 
-> Install NOWH, connect Google, open Claude Cowork, type one command, and begin.
+### V2 (next layer, not current target): NOWH Workflow Layer
 
-The director should not have to understand code, terminals, MCP, local servers, developer folders, schema files, or complex configuration.
+The original six-workflow model — Morning Brief, Meeting Prep, Open Loops, Approval Queue, Grantee Burden Check, Privacy Review — built on the NOWH Director Workspace Google Sheet. **Not discarded** — the Morning Brief spec and 5-tab schema already accepted (`docs/specs/morning_brief_spec.md`) carry forward as the starting point for this layer once V1 is proven. Builds on top of the V1 Calendar/Gmail foundation rather than competing with it.
+
+Full V2 workflow definitions live in [docs/NOWH_Workflow_Specs.md](docs/NOWH_Workflow_Specs.md).
+
+### Eventual Package
+
+The director-facing packaging goal is unchanged in spirit — install NOWH, connect Google, open Claude Cowork, type one command, and begin, with no code/terminal/MCP/schema-file exposure. What that package actually contains now depends on how far V1 and V2 have gotten by the time packaging is scoped (see `NOWH_Plugin_Packaging_Plan.md`).
 
 ---
 
-## 7. Core Workflows
+## 7. Core Workflows (V2)
 
-The first demo should focus on six core workflows: **Morning Brief, Meeting Prep, Open Loops, Approval Queue, Grantee Burden Check, Privacy Review.**
+The V2 layer focuses on six core workflows: **Morning Brief, Meeting Prep, Open Loops, Approval Queue, Grantee Burden Check, Privacy Review.** These are not the current build target — see Section 6. Morning Brief is already specced and accepted; the rest are not yet specced.
 
 Full workflow definitions live in [docs/NOWH_Workflow_Specs.md](docs/NOWH_Workflow_Specs.md).
 
@@ -229,7 +242,7 @@ NOWH may summarize, organize, surface, draft, and recommend next steps.
 
 NOWH must not independently decide or execute sensitive actions.
 
-Human approval is required for: funding decisions, grant renewals, spending, funder-facing messages, donor-facing messages, grantee-facing messages, board materials, founder use, public narratives, youth/community stories, sensitive relationship notes, compliance-sensitive actions.
+Human approval is required for: funding decisions, grant renewals, spending, funder-facing messages, donor-facing messages, grantee-facing messages, board materials, founder use, public narratives, youth/community stories, sensitive relationship notes, compliance-sensitive actions, **and any calendar event/invite that adds or notifies an external party** (funder, donor, grantee, board member, vendor — anyone outside the director's own organization; added 2026-07-02 with V1 Calendar operation).
 
 The system can prepare the director. It cannot replace the director.
 

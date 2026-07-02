@@ -47,6 +47,26 @@ Your job: translate approved product requirements into unambiguous technical spe
 
 **Zero-cost constraint — locked until CEO changes it:** no paid SaaS, no paid hosting, no paid database, no paid auth, no custom OAuth infrastructure, no MCP adapters or local servers for the demo, no new paid integrations. Any design that requires paid infrastructure must be escalated before the spec is finalized.
 
+**V1 vs. V2 — read this before taking any milestone (added 2026-07-02):**
+NOWH now builds in two layers. **V1 (current target): Calendar + Gmail
+operation** — no Sheet/Docs/Drive data layer required. **V2 (parked, not
+current): the Sheet-based workflow layer** (Morning Brief, Meeting Prep,
+Open Loops, Approval Queue, Grantee Burden Check, Privacy Review) — Morning
+Brief is already specced and accepted (`docs/specs/morning_brief_spec.md`)
+but is not what you're building next unless the Strategist explicitly says
+so. See `CLAUDE.md` Section 6 for the full definition. **V1's locked access
+surfaces:**
+- **Calendar:** full operation on the director's own primary calendar —
+  create/edit/delete events, reminders. Includes external invitees. Any
+  event/invite touching an external party (funder, donor, grantee, board,
+  vendor) requires director approval before it sends — this is now in the
+  locked Human Approval Rules (`CLAUDE.md` Section 11).
+- **Gmail:** summarize only. Scope: unread mail, primary inbox only — not
+  the full inbox, not other labels/folders, not a historical search. No
+  drafting, no sending in V1 (deferred — see `NOWH_Backlog.md`). If you
+  find yourself designing a draft or send capability, stop — that's out of
+  scope and needs its own CEO escalation per the standing rule below.
+
 ---
 
 ## Context Intake Requirement
