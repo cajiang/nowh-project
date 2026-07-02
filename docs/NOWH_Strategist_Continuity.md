@@ -133,14 +133,22 @@ section before assuming anything from an earlier session still applies.)
   Privacy Reviewer and QA Reviewer charters still need to be written.
 
 ### Active
-- **V1 spec — ACCEPTED (2026-07-02).** Full spec at
-  `docs/specs/v1_calendar_gmail_operation_spec.md`. Reviewed directly (not
-  just the agent's self-report); tightened one loose invitee-resolution
-  phrase before accepting; resolved 4/5 open questions. **One open item
-  remains genuinely open: Open Question 1, the CEO's live Cowork capability
-  test result — update the spec and this file once reported.** The
-  approval-gate design (Section 3.2) does not depend on that result to be
-  correct, so this doesn't block anything — it's just the one loose end.
+- **V1 spec — ACCEPTED (2026-07-02), now including a Contacts-lookup
+  revision.** Full spec at `docs/specs/v1_calendar_gmail_operation_spec.md`.
+  CEO approved Google Contacts as a new, targeted read-only invitee-
+  resolution source (name→email only, never bulk/standing scan) — Gmail
+  remains forbidden as a resolution source, unchanged. Reviewed the full
+  revised file directly both times (not just agent self-reports); caught
+  and fixed two real inconsistencies across the two review passes (a stale
+  "no Calendar access" line in the first V1 draft, and a stale "resolve
+  from Gmail" line in Section 6 that survived both revisions because
+  Section 6 wasn't in either revision's explicit scope). **Process
+  learning: grep the full document for terms under a hard constraint
+  before accepting a revision, not just the sections the revision was
+  scoped to touch.**
+  **One open item remains genuinely open: Open Question 1, the CEO's live
+  Cowork capability test result — update the spec and this file once
+  reported.** Does not block anything.
   **Remaining before V1 is fully closed:** record the CEO's test finding;
   build Privacy & Governance Reviewer agent and run it against this spec;
   actually implement and test in a real Google/Cowork environment (outside

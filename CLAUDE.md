@@ -183,6 +183,7 @@ NOWH operates the director's own Google Calendar and reads/summarizes Gmail, thr
 - Set reminders (recurring or one-off)
 - **Includes inviting external people** (funders, grantees, board members, vendors) to events — this is an explicit scope decision (CEO, 2026-07-02), not a default
 - **Approval gate:** any event that adds or notifies an external invitee requires explicit director approval before the invite/notification is actually sent — this is an external-facing action under the Human Approval Rules (Section 11), same bar as an external email. Purely internal actions (blocking the director's own time, personal reminders, internal-only meetings) do not require formal approval — normal conversational confirmation is enough.
+- **Google Contacts lookup (added 2026-07-02):** NOWH may look up the director's saved Google Contacts to resolve a named invitee (e.g., "Jordan") to an email address — targeted, read-only lookup only, triggered only to resolve a specific named person for a Calendar action, never a bulk export or standing scan. This does not weaken the approval gate above — the gate still applies to any external send regardless of how the email was resolved, and the confirmation preview must show the resolution source so the director can catch a wrong match.
 
 **Gmail — summarize only, scoped narrow:**
 - Highlight and summarize new (unread) email in the **primary inbox only** — not a full historical search, not every label/folder. Matches the locked privacy principle of preferring narrow, labeled sources over broad inbox scans.

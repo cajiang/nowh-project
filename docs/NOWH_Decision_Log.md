@@ -47,6 +47,66 @@ its own charter. `NOWH_Agent_Architecture.md` updated to reference it.
 otherwise lack broader product context (privacy stance, grantee-centered
 framing, what NOWH must never become) needed to make good judgment calls.
 
+### 2026-07-02 — V1 spec Contacts-lookup revision accepted
+
+**Decision:** Accepted the Architect's revision of
+`docs/specs/v1_calendar_gmail_operation_spec.md` adding Google Contacts
+lookup (Sections 3.1, 3.2, 5, 7, 8, 9, 10 revised in place, per the
+"Google Contacts lookup approved for V1" decision above). Reviewed the
+full file directly, not just the agent's self-report.
+
+**Found and fixed a second real inconsistency** (same category as the
+Morning Brief stale-Gmail-line catch, and something I should have caught
+in the *first* V1 review, not just this one): Section 6 (Director Friction
+Impact) had a leftover line saying NOWH should "resolve from context
+already available in conversation or Gmail" — directly contradicting the
+hard, repeated rule elsewhere in the same document that Gmail is forbidden
+as an invitee-resolution source. Section 6 wasn't in either revision's
+scope (I only asked the Architect to touch 3.1/3.2/5/7/8/9/10), so this
+line survived both passes. Fixed directly. **Process note for future
+Strategist reviews:** grep the full document for a term under a hard
+constraint (here, "Gmail") before accepting, not just the sections a
+revision was scoped to touch — a stale reference can hide anywhere.
+
+Everything else in the revision held up well: the approval-gate contract
+correctly stayed source-agnostic (Contacts-resolved emails get a "found
+via your contacts" label in the preview, but the confirmation requirement
+itself didn't weaken), and new edge cases/acceptance tests (no match,
+ambiguous match, Contacts access not granted) are all consistent with the
+existing graceful-degradation pattern.
+
+**Remaining before V1 is fully closed:** CEO's live capability test result
+(Open Question 1); Privacy & Governance Reviewer pass; real implementation
+and testing.
+
+### 2026-07-02 — Google Contacts lookup approved for V1 (new access surface)
+
+**Decision:** CEO approved allowing NOWH to look up the director's saved
+Google Contacts to resolve a name (e.g., "Jordan") to an email address,
+reversing the just-accepted V1 spec's constraint that invitee emails could
+only come from what the director directly typed/pasted in conversation.
+**Scope, as approved:** targeted, read-only name→email lookup only,
+triggered only when NOWH needs to resolve a specific named invitee for a
+Calendar action — not a bulk contacts export, not proactive browsing, not
+a standing data source NOWH scans. Contacts is a new V1 access surface,
+same category as Calendar and Gmail.
+**What does NOT change:** the approval-gate requirement (spec Section 3.2)
+is source-agnostic — an external invite still requires the director's
+explicit confirmation regardless of whether the email came from Contacts
+or was typed directly. Contacts lookup changes *resolution*, not the
+approval bar. The revised spec must make the resolution source visible in
+the confirmation preview (e.g., "found via your contacts") so the director
+can catch a wrong/stale match before confirming, since NOWH is now making
+an autonomous match rather than only ever using director-stated info.
+**Rationale:** CEO call — real friction reduction (director doesn't retype
+emails for people they've already saved), weighed against a new access
+surface. Consistent with the standing rule (`CLAUDE.md` Section 26):
+approved explicitly, not assumed.
+**Follow-up required:** Architect must revise
+`docs/specs/v1_calendar_gmail_operation_spec.md` Sections 3.1, 7, 8, 9, 10
+to add Contacts lookup, preserving Section 3.2 unchanged in substance
+(only extending what the preview must show).
+
 ### 2026-07-02 — V1 Calendar + Gmail Operation spec accepted
 
 **Decision:** Accepted `docs/specs/v1_calendar_gmail_operation_spec.md`

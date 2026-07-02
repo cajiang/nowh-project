@@ -1,6 +1,6 @@
 # NOWH V1: Calendar + Gmail Operation — Technical Specification
 
-**Status:** **Accepted by Strategist, 2026-07-02** — ready to build, pending (a) the Privacy & Governance Reviewer pass and (b) the CEO's live capability test result being recorded in Open Question 1
+**Status:** **Accepted by Strategist, 2026-07-02, including the Contacts-lookup revision** — ready to build, pending (a) the Privacy & Governance Reviewer pass and (b) the CEO's live capability test result being recorded in Open Question 1
 **Author:** NOWH Architect
 **Milestone:** V1 technical spec, first spec written against the re-sequenced
 scope locked 2026-07-02 (`NOWH_Decision_Log.md`, "Major re-sequencing: V1
@@ -11,6 +11,22 @@ spec.
 Sheet exists in any real Google account (`NOWH_Strategist_Continuity.md`,
 "Not Started"). This spec does not depend on the V2 Sheet schema and does
 not reference it.
+
+**Revision note (2026-07-02, same day, second revision):** Adds Google
+Contacts as a targeted, read-only invitee-resolution source for Calendar
+actions, per the CEO decision logged in `NOWH_Decision_Log.md` ("Google
+Contacts lookup approved for V1 (new access surface)"). This reverses the
+prior revision's hard constraint that invitee emails could only ever come
+from what the director directly typed/pasted — Contacts lookup is now a
+second resolution source, inserted between "director states it" and "ask
+the director." **Gmail's resolution rules are unchanged and remain
+forbidden as a lookup source** — this revision does not touch that
+constraint. The approval-gate contract (Section 3.2) is unchanged in
+substance; it gains one new requirement: the confirmation preview must
+name the resolution source when an email came from Contacts, so the
+director can catch a wrong or stale match before approving. Sections
+revised: 3.1, 3.2, 5 (item 4), 7, 8, 9, 10. All other sections are
+unchanged from the prior accepted revision.
 
 ---
 
@@ -114,10 +130,10 @@ surface, and (3.4) NOWH's persistence conclusion for V1.
 
 | Trigger phrase (+ close variants) | What it does | What it asks for if missing | What it returns |
 |---|---|---|---|
-| "Schedule a [meeting/call] with [person/org] on [date] at [time]" | Creates a new Calendar event on the director's primary calendar, with the named person/org as an invitee if an email address can be resolved. **Resolution sources, in order:** (1) the request itself, if the director states or pastes the email; (2) an email the director explicitly types into the conversation when asked. **NOWH must never search Gmail or any other source to look up or infer an invitee's email — resolution only ever comes from what the director directly provides in the conversation** (see Open Question 3; this is a hard constraint, not a preference). | Missing date/time, missing or ambiguous invitee email | If any invitee is external (Section 3.2 defines "external"): the full pre-send preview and explicit confirmation request (Section 3.2) before the event is created/sent. If purely internal (no external invitee, e.g. "Block 2-3pm for budget review"): creates directly, confirms conversationally after the fact ("Blocked 2-3pm today for budget review.") |
+| "Schedule a [meeting/call] with [person/org] on [date] at [time]" | Creates a new Calendar event on the director's primary calendar, with the named person/org as an invitee if an email address can be resolved. **Resolution sources, in order:** (1) the request itself, if the director states or pastes the email; (2) a **targeted, read-only Google Contacts lookup** by the name given, triggered only to resolve this one specific invitee for this action — never a bulk export, never a standing scan of the director's contacts; (3) if no Contacts match is found, or the match is ambiguous (more than one contact with that name), NOWH asks the director directly for the email rather than guessing. **NOWH must never search Gmail or any other source to look up or infer an invitee's email — Gmail remains a forbidden resolution source.** Contacts is the one addition to resolution sources; see Section 10, Open Question 3 for the decision history. | Missing date/time; no Contacts match or an ambiguous Contacts match (multiple same-name contacts) | If any invitee is external (Section 3.2 defines "external"): the full pre-send preview and explicit confirmation request (Section 3.2) before the event is created/sent — **and if the email was resolved via Contacts rather than director-stated, the preview must say so** (Section 3.2). If purely internal (no external invitee, e.g. "Block 2-3pm for budget review"): creates directly, confirms conversationally after the fact ("Blocked 2-3pm today for budget review.") |
 | "Move/reschedule [event] to [new date/time]" | Edits an existing event's date/time | Which event, if ambiguous (multiple matches) | Same approval-gate branch as above — a reschedule of an event with external invitees re-triggers the approval gate (Section 7 edge case), since the notification email to those invitees is itself an external-facing send |
 | "Cancel/delete [event]" | Deletes an existing event | Which event, if ambiguous | If the event has any external invitee: approval gate applies (Section 3.2) — cancellation notifies invitees, which is itself an external-facing send. If purely internal: deletes directly, confirms after the fact |
-| "Add/remove [person] from [event]" | Edits an event's invitee list | Which event, if ambiguous; invitee's email if not resolvable | Adding or removing an *external* invitee triggers the approval gate (this changes who is notified externally). Adding/removing an internal-only attendee does not |
+| "Add/remove [person] from [event]" | Edits an event's invitee list. Invitee email resolution for an add follows the same order as above (director-stated, then targeted Contacts lookup, then ask) | Which event, if ambiguous; invitee's email if not resolvable via director statement or Contacts | Adding or removing an *external* invitee triggers the approval gate (this changes who is notified externally), with the Contacts-source note in the preview if applicable. Adding/removing an internal-only attendee does not |
 | "Set a reminder for [X] on/at [date/time]" | Creates a one-off or recurring reminder (Calendar event with no attendees, or Calendar's native reminder/notification feature — whichever Claude Cowork's connector actually exposes) | Recurrence pattern if the director says "recurring" without specifying frequency | Confirms conversationally after creation — reminders are internal-only by definition (no attendee), so no approval gate applies |
 | "What's on my calendar [today/this week/on X date]" | Reads and summarizes events in the requested window from the primary calendar | Nothing — defaults to today if no window given | A conversational summary (not a new Doc — see 3.4) |
 
@@ -160,7 +176,14 @@ create or modify the event:
    (if available) email address. If any invitee's identity or email is
    uncertain, NOWH must say so explicitly rather than guessing silently
    (e.g., "I found an email for [Name] but I'm not fully sure it's current
-   — confirm before I use it").
+   — confirm before I use it"). **If the email was resolved via a Google
+   Contacts lookup rather than stated/pasted directly by the director, the
+   preview must say so** (e.g., "Jordan Lin (jordan@riverbendyouth.org,
+   found via your contacts)") — this is new information the director needs
+   to catch a wrong or stale match, since they didn't type the email
+   themselves and can't otherwise tell where it came from. If the director
+   stated or pasted the email directly, no source note is needed — the
+   requirement only applies to Contacts-resolved matches.
 2. **What the event is** — the event title/subject as it will appear on
    the invite.
 3. **When** — date, start time, end time (and time zone if there's any
@@ -177,8 +200,12 @@ conversation):**
 
 > "Here's what I'm about to send: a calendar invite titled **'Budget Review
 > Call'** for **Tuesday, July 7 at 2:00–2:30pm ET**, inviting **Jordan Lin
-> (jordan@riverbendyouth.org)** — outside your organization. I haven't sent
-> anything yet. Want me to go ahead?"
+> (jordan@riverbendyouth.org, found via your contacts)** — outside your
+> organization. I haven't sent anything yet. Want me to go ahead?"
+
+(If the director had typed or pasted the email directly instead, the same
+preview would omit "found via your contacts" — the source note only
+appears when NOWH resolved the match itself.)
 
 **What confirmation NOWH needs before proceeding:**
 
@@ -210,10 +237,11 @@ in NOWH's own system prompt / Skill instructions for the Calendar command
 surface — not left to be inferred from general good-assistant behavior, and
 not delegated to Claude Cowork's connector defaults. Claude Code, when
 implementing, must write this as an explicit, unambiguous instruction block
-(the specific requirements above: preview contents, confirmation
-requirements, no-partial-credit rule, default-to-external-on-ambiguity
-rule) so that the behavior is enforced by NOWH's design even in a Cowork
-session/connector configuration where the platform itself does not pause.
+(the specific requirements above: preview contents including the
+Contacts-source note when applicable, confirmation requirements,
+no-partial-credit rule, default-to-external-on-ambiguity rule) so that the
+behavior is enforced by NOWH's design even in a Cowork session/connector
+configuration where the platform itself does not pause.
 
 ### 3.3 Gmail command surface
 
@@ -293,7 +321,11 @@ doing them by hand.
    read-only, unread + primary inbox only, no labels/conventions introduced
    (NOWH does not create Gmail labels in V1 — not needed for a live,
    ungrouped unread-mail summary). No naming convention imposed on event
-   titles — the director's own phrasing is used as given.
+   titles — the director's own phrasing is used as given. **Google Contacts
+   is now a read source for Calendar invitee resolution** (Section 3.1) —
+   targeted, read-only, name→email lookup only, triggered per-invitee, never
+   a bulk export or standing scan. No new Contacts conventions are
+   introduced (no labels, no groups, no writes) — NOWH only reads.
 5. **Claude Cowork command surface** — New trigger phrases per Section 3.1
    (Calendar) and Section 3.3 (Gmail). This is the primary deliverable of
    this spec — see those sections for the full contract. Follow-up
@@ -359,9 +391,10 @@ new" and gets a summary instead of skimming manually.
 - If NOWH cannot confidently resolve an invitee's email, it must ask rather
   than guess (Section 3.1/3.2) — a small added step, but the alternative
   (guessing wrong and inviting the wrong person, or a wrong address) is
-  worse. Mitigation: NOWH should try to resolve from context already
-  available in conversation or Gmail before asking the director to supply
-  it manually.
+  worse. Mitigation: NOWH tries the full resolution chain first — what the
+  director already stated, then a targeted Google Contacts lookup — before
+  asking the director to supply the email manually. (Gmail is never part of
+  this chain — see Section 3.1's hard constraint.)
 - Internal-only actions (blocking time, personal reminders) must not
   inherit this friction — Section 3.1/3.2 explicitly carve these out to
   keep the common case fast.
@@ -420,6 +453,30 @@ reaching them.
   (Section 3.1's scope boundary). NOWH states this plainly rather than
   attempting it or silently defaulting to the primary calendar without
   saying so.
+- **No Contacts match found for a named invitee:** NOWH asks the director
+  directly for the email rather than failing, guessing, or fuzzy-matching a
+  similarly-named contact. Same posture as the pre-Contacts spec's "no
+  email resolvable" case (Section 3.1).
+- **Multiple Contacts matches for the same name:** NOWH does not guess which
+  one the director means. It asks the director to disambiguate, showing
+  what's available (e.g., distinguishing details already visible in
+  Contacts, such as a second email or an org affiliation, if that helps the
+  director tell them apart) rather than silently picking the first or most
+  recent match.
+- **A Contacts match exists but looks stale or wrong in some detectable
+  way** (e.g., a bounced-address signal NOWH can actually observe): treat it
+  the same as an uncertain match — surface the concern explicitly in the
+  preview rather than using it silently. Where staleness is *not*
+  detectable (the common case — NOWH has no way to know a saved email is
+  outdated), this spec does not claim NOWH can verify it; the Section 3.2
+  preview requirement (showing "found via your contacts") is the safeguard,
+  giving the director the chance to catch it themselves, not a detection
+  mechanism on NOWH's side.
+- **Google Contacts access not granted:** degrades gracefully, same pattern
+  as Calendar/Gmail not being connected — NOWH does not block the whole
+  Calendar action. It states plainly that it can't look up contacts right
+  now and asks the director for the invitee's email directly, then
+  continues the rest of the action normally.
 - **Time zone ambiguity:** if the director's stated time is ambiguous
   (traveling, working across zones), NOWH must resolve or ask rather than
   guess — an external invite sent for the wrong time is a real, embarrassing
@@ -517,6 +574,33 @@ behavioral, not column-based):**
   this spec's to widen, and reiterates the standing CEO-level escalation
   rule (`CLAUDE.md` Section 26) by name so a future implementer or spec
   author can't quietly expand it.
+- **Risk:** Contacts access, once granted, quietly becomes a broader data
+  source than intended — a bulk export, a standing background scan, or a
+  general "look someone up" feature untethered from a specific Calendar
+  action. **Prevention:** Section 3.1 and `NOWH_Privacy_and_Governance.md`
+  both state, explicitly and in the same terms, that this is a **targeted
+  lookup only** — one name, triggered only to resolve one specific invitee
+  for the Calendar action at hand, never a bulk export and never a standing
+  scan. Same rigor as the Gmail-scope-creep entry above, stated with equal
+  weight rather than as an afterthought because it's a newer surface.
+- **Risk:** NOWH silently matches the wrong person from Contacts (same
+  name, different person; a stale saved address) and an external send goes
+  to the wrong recipient without the director noticing. **Prevention:** the
+  Section 3.2 preview requirement — every Contacts-resolved email is
+  labeled "found via your contacts" in the confirmation preview, giving the
+  director a concrete chance to catch a wrong match before anything is
+  sent. Ambiguous matches (Section 7) are never silently resolved; NOWH
+  asks the director to disambiguate instead.
+- **Risk:** a Contacts entry carries sensitive annotation beyond name and
+  email (notes, phone number, physical address, or other fields the
+  director may have added) and that content leaks into a Calendar preview
+  or event where it doesn't belong. **Prevention:** NOWH's Contacts lookup
+  is scoped to reading and surfacing **only the resolved name and email** —
+  no other Contacts field is read into the conversation, the preview, or
+  the event, unless the director explicitly asks for it (e.g., "what's
+  their phone number?"). This mirrors the existing rule against folding
+  Gmail summary content into a Calendar invite without the director asking
+  for it.
 - **Risk:** the Calendar approval gate is implemented as informal good
   judgment ("the AI should probably ask first") rather than a specific,
   testable contract, and erodes over time as the prompt is edited.
@@ -574,6 +658,22 @@ behavioral, not column-based):**
 14. A purely internal reminder (e.g., "remind me to call the accountant
     Friday") is created without triggering the formal preview/confirmation
     contract.
+15. Asking NOWH to schedule a call with a named invitee who is *not* stated
+    with an email (e.g., "schedule a call with Jordan Tuesday at 2pm")
+    resolves the email via a targeted Google Contacts lookup, and the
+    resulting confirmation preview names the resolution source (e.g.,
+    "found via your contacts") rather than presenting it as if the director
+    had typed it.
+16. When no Contacts match is found for a named invitee, NOWH asks the
+    director for the email directly rather than failing, guessing, or
+    inviting a similarly-named wrong person.
+17. When multiple Contacts matches exist for the same name, NOWH asks the
+    director to disambiguate — showing what's available — rather than
+    silently picking one.
+18. With Google Contacts access not granted, attempting to schedule an
+    event with a named (non-email-stated) invitee degrades gracefully: NOWH
+    states it can't look up contacts right now and asks the director for
+    the email directly, without blocking the rest of the Calendar action.
 
 ---
 
@@ -595,6 +695,20 @@ behavioral, not column-based):**
    Section 3.1** (not left as an Open-Questions-only guardrail) — NOWH must
    never search Gmail or any other source to resolve an invitee's email; it
    only ever uses what the director directly states in conversation.
+   **SUPERSEDED — see revised resolution below (same day, second
+   revision).** ~~This resolution is no longer current.~~
+   **RE-RESOLVED (CEO, 2026-07-02, "Google Contacts lookup approved for V1
+   (new access surface)," `NOWH_Decision_Log.md`):** the "director-stated
+   only" constraint above is reversed for Contacts specifically. NOWH may
+   now resolve a named invitee's email via a **targeted, read-only Google
+   Contacts lookup** — one name, triggered only for the specific invitee
+   needed for the Calendar action at hand, never a bulk export or standing
+   scan — as a second resolution source between "director states it" and
+   "ask the director" (Section 3.1). **Gmail remains forbidden as a
+   resolution source, unchanged.** The approval gate (Section 3.2) is
+   unchanged in substance; it now requires the confirmation preview to name
+   the resolution source when a match came from Contacts, so the director
+   can catch a wrong or stale match before approving.
 4. ~~**No approval audit trail in V1.**~~ **RESOLVED (Strategist,
    2026-07-02): accepted — no audit trail in V1.** Logged as a candidate V2
    requirement in `NOWH_Backlog.md` (natural fit alongside the Approval
@@ -602,8 +716,21 @@ behavioral, not column-based):**
 5. ~~**Command phrase set is proposed, not user-tested.**~~ **RESOLVED
    (Strategist, 2026-07-02): accepted as proposed**, same resolution as
    Morning Brief's equivalent open question.
+6. **What disambiguating detail can NOWH actually show for multiple
+   Contacts matches with the same name?** Section 7's multiple-match edge
+   case says to "show what's available" (e.g., a second email, an org
+   affiliation) but this spec does not know what fields Claude Cowork's
+   Google Contacts connector actually surfaces or how reliably it
+   distinguishes near-duplicate contacts. This is a genuine implementation
+   unknown, not a product decision — flagged for Claude Code to resolve
+   empirically during build (test against a real Contacts list with two
+   same-named entries) rather than for the Strategist/CEO to pre-decide.
+   Does not block acceptance: the fallback (ask the director directly) is
+   already fully specified and safe regardless of what the connector
+   exposes.
 
-**Status:** all open questions resolved or explicitly deferred except #1,
-which is pending the CEO's live test and will be closed out once reported.
-This does not block acceptance — see Status line at the top of this
-document.
+**Status:** all open questions resolved or explicitly deferred except #1
+(pending the CEO's live test, to be closed out once reported) and #6 (a
+build-time implementation unknown, not a product decision, that does not
+block acceptance). Neither blocks acceptance — see Status line at the top
+of this document.

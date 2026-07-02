@@ -64,6 +64,15 @@ The system can prepare the director. It cannot replace the director.
 - **Calendar:** full read/write on the director's own primary calendar
   (create, edit, delete events/reminders). External invitees require
   approval per the Human Approval Rules above before the invite is sent.
+- **Google Contacts (added 2026-07-02):** targeted, read-only name→email
+  lookup only, used only to resolve a specific named invitee for a
+  Calendar action. Not a bulk export, not a standing scan, not browsable —
+  NOWH looks up one name when it needs one email. Does not change the
+  approval gate: an external invite still requires director confirmation
+  regardless of whether the email came from a Contacts match or was
+  typed directly. The confirmation preview must show the match source
+  ("found via your contacts") so the director can catch a wrong/stale
+  match before approving.
 - **Gmail:** read + summarize only, scoped to **unread mail in the primary
   inbox** — not a full historical search, not other labels/folders. No
   drafting, no sending in V1 (deferred, see `NOWH_Backlog.md`). Matches
