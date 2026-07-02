@@ -29,10 +29,20 @@ files, or complex configuration exposed to the director.
 
 ## Command Surface (accruing as workflows are accepted)
 
-- **Morning Brief** (accepted 2026-07-02): "Run my morning brief," "What
-  matters today," "Give me today's brief." Setup flow must ensure the Sheet
-  has the five originated tabs (Entities, Touchpoints, Open Loops, Approval
-  Queue, Daily Brief Items) before offering this as a working command — see
+- **V1 — Calendar + Gmail Operation** (accepted 2026-07-02, current build
+  target): full command table in
+  [specs/v1_calendar_gmail_operation_spec.md](specs/v1_calendar_gmail_operation_spec.md)
+  Sections 3.1 (Calendar) and 3.3 (Gmail). **Setup for V1 is simpler than
+  Morning Brief's** — no Sheet template to copy. The director connects
+  Google Calendar and Gmail via Claude Cowork's own native connector
+  settings (OAuth through Cowork directly), nothing NOWH-specific to set up
+  beforehand. This is likely the actual first packaging target once V1 is
+  built and proven, ahead of Morning Brief/V2.
+- **Morning Brief** (accepted 2026-07-02, parked as V2 — not current build
+  target): "Run my morning brief," "What matters today," "Give me today's
+  brief." Setup flow must ensure the Sheet has the five originated tabs
+  (Entities, Touchpoints, Open Loops, Approval Queue, Daily Brief Items)
+  before offering this as a working command — see
   [specs/morning_brief_spec.md](specs/morning_brief_spec.md) Section 5 item 8
   and Section 7 (missing-tab edge case) for the exact fallback behavior.
 

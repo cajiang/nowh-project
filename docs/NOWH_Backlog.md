@@ -15,6 +15,15 @@ DEFER / REJECT) when triaging new ideas into this list.
   intentionally narrow per the privacy principle of preferring labeled/
   specific sources.
 
+## Deferred — V1 Follow-ups
+
+- **Approval audit trail.** V1 (`docs/specs/v1_calendar_gmail_operation_spec.md`
+  Section 3.4 / Open Question 4) deliberately has no durable record of
+  external-facing actions confirmed/sent — the approval gate is real-time
+  conversational only. A logged history of what NOWH sent, when, and who
+  confirmed it would be useful for director trust/review and is a natural
+  precursor to V2's Approval Queue. Not built now.
+
 ## Deferred — V2: NOWH Workflow Layer (re-sequenced 2026-07-02)
 
 The original six-workflow model, built on the NOWH Director Workspace

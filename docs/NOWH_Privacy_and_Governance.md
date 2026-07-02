@@ -72,6 +72,15 @@ The system can prepare the director. It cannot replace the director.
 - Any widening of either surface (more of the inbox, other calendars,
   drafting, sending) is CEO-level per the standing rule in `CLAUDE.md`
   Section 26 — not something a future spec can quietly expand.
+- **Full approval-gate design accepted, 2026-07-02:**
+  [specs/v1_calendar_gmail_operation_spec.md](specs/v1_calendar_gmail_operation_spec.md)
+  Section 3.2. Key point: the gate is specified as NOWH's own conversational
+  requirement (exact preview contents, exact confirmation rules, no
+  partial-credit, no default-yes), independent of whatever Claude Cowork's
+  underlying connector does by default — it does not rely on unverified
+  platform behavior to hold. Invitee email resolution is similarly
+  constrained: NOWH only ever uses what the director directly states in
+  conversation, never a Gmail search or lookup (spec Section 3.1/10).
 
 ## Conflict Rules
 

@@ -133,13 +133,25 @@ section before assuming anything from an earlier session still applies.)
   Privacy Reviewer and QA Reviewer charters still need to be written.
 
 ### Active
-- **V1 technical spec (Calendar + Gmail operation) — not yet written.**
-  This is the actual next delegation: send the Architect a scoped task per
-  `CLAUDE.md` Section 6's V1 definition and
-  `NOWH_Privacy_and_Governance.md`'s "V1 Data Access Surfaces." Same rigor
-  as Morning Brief (context intake, propagation, privacy control,
-  acceptance tests) but for Calendar operation + Gmail summarization
-  instead of the Sheet.
+- **V1 spec — ACCEPTED (2026-07-02).** Full spec at
+  `docs/specs/v1_calendar_gmail_operation_spec.md`. Reviewed directly (not
+  just the agent's self-report); tightened one loose invitee-resolution
+  phrase before accepting; resolved 4/5 open questions. **One open item
+  remains genuinely open: Open Question 1, the CEO's live Cowork capability
+  test result — update the spec and this file once reported.** The
+  approval-gate design (Section 3.2) does not depend on that result to be
+  correct, so this doesn't block anything — it's just the one loose end.
+  **Remaining before V1 is fully closed:** record the CEO's test finding;
+  build Privacy & Governance Reviewer agent and run it against this spec;
+  actually implement and test in a real Google/Cowork environment (outside
+  this session's tool access).
+- Research finding worth remembering: **do not use Composio or any
+  third-party MCP/connector middleware** to connect Calendar/Gmail — some
+  online guides suggest it, but it violates the locked "no MCP adapters"
+  architecture and would require a nontechnical director to configure a
+  server URL. Use only Claude Cowork's native, first-party Google
+  Workspace connector (no API keys, no dev setup, director just
+  authenticates directly with Google).
 - **V2 (Morning Brief) is parked, not abandoned.** Spec accepted at
   `docs/specs/morning_brief_spec.md`, 5-tab schema in
   `NOWH_Data_Schema.md`. Don't resume building it until V1 is proven —

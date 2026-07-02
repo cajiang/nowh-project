@@ -47,6 +47,42 @@ its own charter. `NOWH_Agent_Architecture.md` updated to reference it.
 otherwise lack broader product context (privacy stance, grantee-centered
 framing, what NOWH must never become) needed to make good judgment calls.
 
+### 2026-07-02 — V1 Calendar + Gmail Operation spec accepted
+
+**Decision:** Accepted `docs/specs/v1_calendar_gmail_operation_spec.md`
+after reviewing it directly. This is the first spec covering the actual
+current build target (V1), delegated in parallel with the CEO's live
+Cowork capability test rather than blocking on it — the spec's approval
+gate (Section 3.2) is designed as a hard NOWH-specified conversational
+requirement independent of platform behavior, so it's correct regardless
+of what the test finds.
+
+Found one thing worth tightening before acceptance (not a bug like Morning
+Brief's stale-line issue, more a looseness risk): Section 3.1's invitee
+email-resolution language mentioned "Gmail contact context" in a way that
+could be misread as authorizing a Gmail contacts search — tightened
+in-place to make the constraint (director-stated email only, never a
+Gmail/contacts lookup) a hard requirement in the design itself, not just a
+note in Open Questions.
+
+Resolved 4 of 5 open questions directly (reminder mechanism = implementation
+detail, invitee resolution = tightened into the spec itself, no audit
+trail = accepted and logged to `NOWH_Backlog.md` as a V2-adjacent
+follow-up, command phrases = accepted as proposed). **Open Question 1
+(live platform validation) remains genuinely open** — pending the CEO's
+test result, to be recorded once available; does not block acceptance.
+
+Folded accepted decisions into `NOWH_Backlog.md` (audit trail follow-up),
+`NOWH_Plugin_Packaging_Plan.md` (V1 command surface, noted as the likely
+actual first packaging target ahead of Morning Brief), and
+`NOWH_Privacy_and_Governance.md` (linked the accepted approval-gate design
+under "V1 Data Access Surfaces").
+
+**Still open before V1 is fully closed:** CEO's live capability test result
+(Open Question 1); Privacy & Governance Reviewer pass (agent still not
+built); actual implementation and testing in a real Google/Cowork
+environment.
+
 ### 2026-07-02 — Major re-sequencing: V1 redefined as Calendar + Gmail operation
 
 **Decision:** CEO reassessed and redefined V1. Instead of shipping the
